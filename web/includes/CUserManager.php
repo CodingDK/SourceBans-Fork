@@ -72,12 +72,14 @@ class CUserManager
 			return $this->admins[$aid];
 		// Not in the manager, so we need to get them from DB
 		$res = $GLOBALS['db']->GetRow("SELECT adm.user user, adm.authid authid, adm.password password, adm.gid gid, adm.email email, adm.validate validate, adm.extraflags extraflags, 
-									   adm.immunity admimmunity,sg.immunity sgimmunity, adm.srv_password srv_password, adm.srv_group srv_group, adm.srv_flags srv_flags,sg.flags sgflags,
+									   adm.immunity admimmunity,sg.immunity sgimmunity, adm.srv_password srv_password, adm.srv_group srv_group, adm.forum_id forum_id, adm.srv_flags srv_flags,sg.flags sgflags,
 									   wg.flags wgflags, wg.name wgname, adm.lastvisit lastvisit
 									   FROM " . DB_PREFIX . "_admins AS adm
 									   LEFT JOIN " . DB_PREFIX . "_groups AS wg ON adm.gid = wg.gid
 									   LEFT JOIN " . DB_PREFIX . "_srvgroups AS sg ON adm.srv_group = sg.name
 									   WHERE adm.aid = $aid");
+		
+		// added by me adm.forum_id forum_id,
 		
 		if(!$res)	
 			return 0;  // ohnoes some type of db error
@@ -100,6 +102,9 @@ class CUserManager
 
 		$user['srv_password'] = $res['srv_password'];
 		$user['srv_groups'] = $res['srv_group'];
+		// added by me start
+		$user['forum_id'] = $res['forum_id'];
+		// added by me end
 		$user['srv_flags'] = $res['srv_flags'] . $res['sgflags'];
 		$user['group_name'] = $res['wgname'];
 		$user['lastvisit'] = $res['lastvisit'];

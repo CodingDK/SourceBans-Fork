@@ -53,7 +53,23 @@ foreach ($admins AS $admin) {
     if (empty($admin['server_group']) || $admin['server_group'] == " ") {
         $admin['server_group'] = "No Group/Individual Permissions";
     }
-    $num               = $GLOBALS['db']->GetRow("SELECT count(authid) AS num FROM `" . DB_PREFIX . "_bans` WHERE aid = '" . $admin['aid'] . "'");
+	// added by me start
+	$admin['forum_id'] = $userbank->GetProperty("forum_id", $admin['aid']);
+	$forum_q = $GLOBALS['db']->GetRow("SELECT `phpbb_users`.`username`, count(`phpbb_user_group`.`user_id`) As num FROM `phpbb_users` LEFT JOIN `phpbb_user_group` ON `phpbb_users`.`user_id`=`phpbb_user_group`.`user_id` WHERE `phpbb_users`.`user_id`='".$admin['forum_id']."' and (`phpbb_user_group`.`group_id`=9 or `phpbb_user_group`.`group_id`=11)");
+	
+	if ((($admin['server_group'] == 'Normal admin server' or $admin['server_group'] == 'Tryout admin server') and $forum_q['num'] == 1) or ($admin['server_group'] == 'Full admin server' and $forum_q['num'] == 2) or (($admin['server_group'] == 'Standby admin server' or $admin['server_group'] == 'Venter på svar') and $forum_q['num'] == 0)) {
+		$admin['forum_ex'] = true;
+	} else {
+		$admin['forum_ex'] = false;
+		//echo $admin['server_group'] ."=".$forum_q['num']."<br>";
+	}
+		
+		
+	//$admin['forum_name'] = $forum_q['num'];
+	
+	$admin['forum_name'] = $forum_q['username'];
+	// added by me end
+	$num               = $GLOBALS['db']->GetRow("SELECT count(authid) AS num FROM `" . DB_PREFIX . "_bans` WHERE aid = '" . $admin['aid'] . "'");
     $admin['bancount'] = $num['num'];
     
     $nodem                = $GLOBALS['db']->GetRow("SELECT count(B.bid) AS num FROM `" . DB_PREFIX . "_bans` AS B WHERE aid = '" . $admin['aid'] . "' AND NOT EXISTS (SELECT D.demid FROM `" . DB_PREFIX . "_demos` AS D WHERE D.demid = B.bid)");
