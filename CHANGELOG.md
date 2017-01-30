@@ -10,6 +10,50 @@ Legend:
 ? = Other stuff
 ```
 
+(28/04/16): Version 1.5.4.7
+-----------------------
+01. ! Fix Admins and Groups Not Loading from Config
+
+(23/04/16): Version 1.5.4.6
+-----------------------
+01. ! Fix Perm Ban bug in SourceSleuth
+02. ! Fix Updater
+
+(18/04/16): Version 1.5.4.5
+-----------------------
+01. ! Fix Variuous Bugs in the Plugins EXCEPT SourceSleuth
+02. ? Updated ADOdb and LightOpenID Library
+
+(07/04/16): Version 1.5.4.4
+-----------------------
+01. ! Fix Memory Leak in SourceSleuth Plugin
+02. ? Optimized and updated IpToCountry.csv
+
+(24/03/16): Version 1.5.4.3
+-----------------------
+01. ! Downgrade plugin to 1.5.3
+02. + Add ULX Module for GMOD (Not Maintained by Me)
+
+(09/03/16): Version 1.5.4.2
+-----------------------
+01. ! Fix XSS Vulnerability in SourceComms Page
+
+(01/03/16): Version 1.5.4.1
+-----------------------
+01. ! Fix Ban/Comm Reason Issue in Plugin
+02. ? CC-BY-NC-SA-3.0
+
+(14/02/16): Version 1.5.4
+-----------------------
+01. * Added Steam3 ID to Ban and Comm list
+02. * Added PHP7 Support
+03. + Updated Comms page with better CSS
+04. + Small misc theme fixes
+05. + Small plugin fixes/optimizations
+06. ! Fixed config.php bug with APIKey and URL
+07. ! Fix MariaDB Empty Ban List
+08. ? Optimized and updated IpToCountry.csv
+
 (01/09/15): Version 1.5.3
 -----------------------
 01. * Added Steam API Key to Installer for Future Use
